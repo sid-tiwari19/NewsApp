@@ -3,105 +3,98 @@ import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
-import axios from "axios";
 
 const News = (props) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
-  const [totalResults, setTotalResults] = useState(0);
+  const [page, setPage] = useState(9);
 
-  const capitalizeFirstLetter = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
+  // api information
+  // const subscriptionKey = {hidden};
 
   const updateNews = async () => {
-    props.setProgress(40);
     await fetchUpdatedData();
-    props.setProgress(100);
   };
+
   useEffect(() => {
-    document.title = `${capitalizeFirstLetter(props.category)}- Riyal Neus`;
+    props.setProgress(20);
+    setLoading(true);
+    document.name = `${props.final ? props.final : props.yo}- Riyal Neus`;
     updateNews();
     // eslint-disable-next-line
-  }, []);
+  }, [page, props.final]);
 
   const fetchUpdatedData = async () => {
-    setLoading(true);
-    const options = {
-      method: "GET",
-      url: "https://api.newscatcherapi.com/v2/latest_headlines",
-      params: {
-        lang: props.lang1,
-        page: page,
-        page_size: props.pageSize,
-        countries: props.country,
-        topic: props.category,
-      },
+    const url = `https://api.bing.microsoft.com/v7.0/news/search?q=${
+      props.final ? props.final : props.category
+    }+news&cc=${props.country}&count=${page}&offset=0`;
+
+    fetch(url, {
       headers: {
-        "x-api-key": "kQ-eoJk0VZw8k9RmnWiF0ZJDr2tvD5SrbS-5Dlb4BvM",
-        Accept: "application/json", // Set the Accept header to indicate JSON response
+        "Ocp-Apim-Subscription-Key": subscriptionKey,
       },
-    };
-    try {
-      const response = await axios.request(options);
-      const responseData = response.data;
-      setArticles(articles.concat(responseData.articles));
-      setTotalResults(responseData.totalResults);
-      setLoading(false);
-    } catch (error) {}
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setArticles(data.value);
+        props.setProgress(60);
+        setLoading(false);
+        props.setProgress(100);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
-  const fetchMoreData = async () => {
-    setPage(page + 1);
-    fetchUpdatedData();
+  const fetchMoreData = () => {
+    setPage((prevPage) => prevPage + 9);
   };
 
   return (
     <div className="container my-3">
-      <h1
-        className="text-center "
-        style={{ margin: "35px 0px", paddingTop: "30px" }}
-      >
-        Top {capitalizeFirstLetter(props.category)} headlines{" "}
+      <h1 className="text-center headline">
+        Top {props.final ? props.final : props.yo} headlines{" "}
       </h1>
-      {loading && <Spinner />}
+      {page === 9 && loading && <Spinner />}
       <InfiniteScroll
         dataLength={articles.length}
+        hasMore={true}
         next={fetchMoreData}
-        hasMore={articles.length !== totalResults}
-        loader={loading && <Spinner />}
+        loader={page !== 9 && loading && <Spinner />}
       >
         <div className="container">
           <div className="row">
             {articles.map((element) => {
               return (
-                <div className="col-md-4" key={element.link}>
+                <div className="col-md-4" key={element.url}>
                   <NewsItem
                     title={
-                      element.title == null
+                      element.name == null
                         ? ""
-                        : element.title.length < 70
-                        ? element.title
-                        : element.title.slice(0, 70) + "..."
+                        : element.name.length < 70
+                        ? element.name
+                        : element.name.slice(0, 70) + "..."
                     }
                     description={
-                      element.summary == null
+                      element.description == null
                         ? ""
-                        : element.summary.length < 95
-                        ? element.summary
-                        : element.summary.slice(0, 95) + "..."
+                        : element.description.length < 95
+                        ? element.description
+                        : element.description.slice(0, 95) + "..."
                     }
-                    imageUrl={element.media}
-                    newsUrl={element.link}
+                    imageUrl={
+                      element.image
+                        ? element.image.thumbnail.contentUrl + "?w=640&h=400"
+                        : "https://cdn.pixabay.com/photo/2015/02/15/09/33/news-636978_1280.jpg"
+                    }
+                    newsUrl={element.url}
                     author={element.author ? element.author : "Unknown"}
                     date={
-                      element.published_date
-                        ? element.published_date.slice(0, 10)
+                      element.datePublished
+                        ? element.datePublished.slice(0, 10)
                         : ""
                     }
-                    source={element.clean_url}
+                    source={element.provider[0].name}
                     docColor={props.docColor}
-                    lang1={props.lang1}
                   />
                 </div>
               );
@@ -116,7 +109,6 @@ const News = (props) => {
 News.defaultProps = {
   country: "in",
   pageSize: 9,
-  category: "news",
   lang: "en",
 };
 News.propTypes = {

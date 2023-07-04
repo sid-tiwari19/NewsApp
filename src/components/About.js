@@ -2,7 +2,7 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="container py-5">
+    <div className="container py-5 about">
       <h1 className="display-4 my-3 mb-4" style={{ fontFamily: "Georgia" }}>
         Riyal Neus
       </h1>
@@ -42,6 +42,22 @@ const About = () => {
             Give your eyes a break. Riyal News features a dark mode that
             provides a visually comfortable reading experience, especially in
             low-light conditions.
+          </p>
+        </div>
+      </div>
+      <div className="card bg-light mb-4">
+        <div className="card-body">
+          <h5 className="card-title">
+            Discover News Tailored to Your Interests - Search Any Topic or
+            Category
+          </h5>
+          <p className="card-text">
+            The search feature in Riyal Neus allows you to quickly find and
+            explore news articles that matter to you. By entering keywords or
+            phrases in the search bar, you can access relevant and up-to-date
+            information on specific topics of interest. Stay informed and
+            discover news stories tailored to your preferences with ease through
+            our intuitive search functionality.
           </p>
         </div>
       </div>

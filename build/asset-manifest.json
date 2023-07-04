@@ -1,18 +1,19 @@
 {
   "files": {
-    "main.css": "/sid-tiwari19/Newsapp/static/css/main.3721b372.css",
-    "main.js": "/sid-tiwari19/Newsapp/static/js/main.ee959aff.js",
-    "static/js/787.96f9995d.chunk.js": "/sid-tiwari19/Newsapp/static/js/787.96f9995d.chunk.js",
-    "static/media/bootstrap-icons.woff?": "/sid-tiwari19/Newsapp/static/media/bootstrap-icons.4753c5ba57962b4d7bf8.woff",
-    "static/media/bootstrap-icons.woff2?": "/sid-tiwari19/Newsapp/static/media/bootstrap-icons.6d63d0501e5ed7b79dab.woff2",
-    "static/media/Rolling-1s-200px.gif": "/sid-tiwari19/Newsapp/static/media/Rolling-1s-200px.91a4abfb2bcfef6e9f9f.gif",
-    "index.html": "/sid-tiwari19/Newsapp/index.html",
-    "main.3721b372.css.map": "/sid-tiwari19/Newsapp/static/css/main.3721b372.css.map",
-    "main.ee959aff.js.map": "/sid-tiwari19/Newsapp/static/js/main.ee959aff.js.map",
-    "787.96f9995d.chunk.js.map": "/sid-tiwari19/Newsapp/static/js/787.96f9995d.chunk.js.map"
+    "main.css": "/static/css/main.bc2695d1.css",
+    "main.js": "/static/js/main.32bf66a3.js",
+    "static/js/787.96f9995d.chunk.js": "/static/js/787.96f9995d.chunk.js",
+    "static/media/bootstrap-icons.woff?": "/static/media/bootstrap-icons.4753c5ba57962b4d7bf8.woff",
+    "static/media/bootstrap-icons.woff2?": "/static/media/bootstrap-icons.6d63d0501e5ed7b79dab.woff2",
+    "static/media/Rolling-1s-200px.gif": "/static/media/Rolling-1s-200px.91a4abfb2bcfef6e9f9f.gif",
+    "static/media/logo192.png": "/static/media/logo192.8b97d1ebd3bb2daa6b6b.png",
+    "index.html": "/index.html",
+    "main.bc2695d1.css.map": "/static/css/main.bc2695d1.css.map",
+    "main.32bf66a3.js.map": "/static/js/main.32bf66a3.js.map",
+    "787.96f9995d.chunk.js.map": "/static/js/787.96f9995d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3721b372.css",
-    "static/js/main.ee959aff.js"
+    "static/css/main.bc2695d1.css",
+    "static/js/main.32bf66a3.js"
   ]
 }

@@ -50,3 +50,20 @@
   background-color: #212121;
   color: white;
 }
+
+.headline {
+  padding-top: 9%;
+  margin-bottom: 10px;
+}
+
+.about {
+  margin-top: 2%;
+}
+@media (max-width: 768px){
+  .headline {
+    padding-top: 40%;
+  }
+  .about {
+    margin-top: 25%;
+  }
+}

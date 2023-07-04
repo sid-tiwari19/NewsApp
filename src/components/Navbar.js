@@ -1,11 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import logo from "./logo192.png";
 
-const Navbar = ({ toggleBgMode, toggleLoadingMode, lang1, lang2, setLang }) => {
+const Navbar = ({ toggleBgMode, toggleLoadingMode, setFinal }) => {
   const [darkMode, setDarkMode] = useState(false);
   const [bgColor, setBgColor] = useState("#007BFF");
+  const [query, setQuery] = useState(null);
   const location = useLocation();
+
+  const handleSearch = (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+    setFinal(query); // Call setFinal function with the query value
+  };
+
+  useEffect(() => {
+    if (query === "") setFinal(null);
+    // eslint-disable-next-line
+  }, [query]);
 
   const toggleDarkMode = () => {
     if (darkMode) {
@@ -26,10 +38,18 @@ const Navbar = ({ toggleBgMode, toggleLoadingMode, lang1, lang2, setLang }) => {
   return (
     <div>
       <nav
-        className="navbar fixed-top navbar-expand-lg"
-        style={{ backgroundColor: bgColor, color: "white" }}
+        className="navbar fixed-top navbar-expand-lg "
+        style={{
+          backgroundColor: bgColor,
+          color: "white",
+        }}
       >
         <div className="container-fluid">
+          <img
+            src={logo}
+            alt=""
+            style={{ height: "50px", margin: "0px 10px" }}
+          ></img>
           <Link className="navbar-brand" style={{ color: "white" }} to="/">
             Riyal Neus
           </Link>
@@ -49,16 +69,6 @@ const Navbar = ({ toggleBgMode, toggleLoadingMode, lang1, lang2, setLang }) => {
             id="navbarSupportedContent"
           >
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <Link
-                  className={`nav-link ${isActiveLink("/")}`}
-                  style={{ color: "white" }}
-                  aria-current="page"
-                  to="/"
-                >
-                  Home
-                </Link>
-              </li>
               <li className="nav-item">
                 <Link
                   className={`nav-link ${isActiveLink("/about")}`}
@@ -88,29 +98,20 @@ const Navbar = ({ toggleBgMode, toggleLoadingMode, lang1, lang2, setLang }) => {
               </li>
               <li className="nav-item">
                 <Link
-                  className={`nav-link ${isActiveLink("/world")}`}
+                  className={`nav-link ${isActiveLink("/health")}`}
                   style={{ color: "white" }}
-                  to="/world"
+                  to="/lifestyle"
                 >
-                  World
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className={`nav-link ${isActiveLink("/beauty")}`}
-                  style={{ color: "white" }}
-                  to="/beauty"
-                >
-                  Beauty{" "}
+                  Lifestyle
                 </Link>
               </li>
               <li className="nav-item">
                 <Link
                   className={`nav-link ${isActiveLink("/science")}`}
                   style={{ color: "white" }}
-                  to="/science"
+                  to="/politics"
                 >
-                  Science
+                  Politics
                 </Link>
               </li>
               <li className="nav-item">
@@ -124,51 +125,85 @@ const Navbar = ({ toggleBgMode, toggleLoadingMode, lang1, lang2, setLang }) => {
               </li>
               <li className="nav-item">
                 <Link
-                  className={`nav-link ${isActiveLink("/tech")}`}
+                  className={`nav-link ${isActiveLink("/technology")}`}
                   style={{ color: "white" }}
                   to="/tech"
                 >
-                  Technology
+                  Science & Tech
                 </Link>
               </li>
               <li className="nav-item">
                 <Link
-                  className={`nav-link ${isActiveLink("/finance")}`}
+                  className={`nav-link ${isActiveLink("/technology")}`}
                   style={{ color: "white" }}
-                  to="/finance"
+                  to="/world"
                 >
-                  Finance
+                  World
                 </Link>
               </li>
               <li className="nav-item">
                 <Link
-                  className={`nav-link ${isActiveLink("/politics")}`}
+                  className={`nav-link ${isActiveLink("/technology")}`}
                   style={{ color: "white" }}
-                  to="/politics"
+                  to="/india"
                 >
-                  Politics
+                  India
                 </Link>
               </li>
             </ul>
           </div>
-          <div className="form-check form-switch">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              checked={darkMode}
-              onChange={toggleDarkMode}
-              role="switch"
-              id="flexSwitchCheckDefault"
-            />
-            <label
-              className="form-check-label"
-              htmlFor="flexSwitchCheckDefault"
+          <div className="mx-2" style={{ width: "400px" }}>
+            <form
+              class="d-flex my-2"
+              role="search"
+              onSubmit={handleSearch}
+              style={{ width: "100%" }}
             >
-              <i
-                className="bi bi-moon-stars-fill"
-                style={{ padding: "0px 5px" }}
-              ></i>
-            </label>
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                style={
+                  darkMode
+                    ? {
+                        backgroundColor: "#212121",
+                        color: "white",
+                        width: "min(100%,350px)",
+                      }
+                    : { width: "min(100%,350px)" }
+                }
+                aria-label="Search"
+              />
+              <button
+                class={`btn btn-${!darkMode ? "danger" : "primary"}`}
+                type="submit"
+              >
+                Search
+              </button>
+            </form>
+          </div>
+          <div className="mx-auto">
+            <div className="form-check form-switch mx-2">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                checked={darkMode}
+                onChange={toggleDarkMode}
+                role="switch"
+                id="flexSwitchCheckDefault"
+              />
+              <label
+                className="form-check-label"
+                htmlFor="flexSwitchCheckDefault"
+              >
+                <i
+                  className="bi bi-moon-stars-fill"
+                  style={{ padding: "0px 5px" }}
+                ></i>
+              </label>
+            </div>
           </div>
         </div>
       </nav>
